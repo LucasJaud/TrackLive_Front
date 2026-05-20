@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+.gradient-text-purple {
+  background: linear-gradient(90deg, #a855f7, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-orange {
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #7c3aed, #f97316);
+  transition: opacity 0.2s;
+}
+
+.btn-gradient:hover {
+  opacity: 0.88;
+}
+
+.hero-bg {
+  background: radial-gradient(ellipse at center bottom, rgba(124,58,237,0.28) 0%, rgba(249,115,22,0.12) 45%, #0a0a0a 72%);
+}
+
+.features-bg {
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(76,29,149,0.1) 50%, #0a0a0a 100%);
+  border-top: 1px solid #2a1a4a;
+  border-bottom: 1px solid #2a1a4a;
+}
+
+.footer-bg {
+  background: linear-gradient(180deg, #0a0a0a 0%, rgba(76,29,149,0.18) 100%);
+  border-top: 1px solid #2a1a4a;
+}
+
+.navbar-border {
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, #7c3aed, #f97316, #7c3aed) 1;
+}
+
+.product-card {
+  background: #111111;
+  border: 1px solid #1e1040;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  border-color: #7c3aed;
+  box-shadow: 0 0 30px rgba(124,58,237,0.2);
+  transform: translateY(-4px);
+}
+
+.input-dark {
+  background: #0d0d1a;
+  border: 1px solid #2a1a4a;
+  color: white;
+  transition: border-color 0.2s;
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124,58,237,0.2);
+}
+
+.input-dark::placeholder {
+  color: #4b5563;
+}
+
+.category-btn {
+  background: transparent;
+  border: 1px solid #2a1a4a;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.category-btn:hover {
+  border-color: #7c3aed;
+  color: white;
+}
+
+.category-btn.active {
+  background: linear-gradient(90deg, #7c3aed, #f97316);
+  border-color: transparent;
+  color: white;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
