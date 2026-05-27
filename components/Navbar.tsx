@@ -11,8 +11,8 @@ function formatPrice(p: number) {
 }
 
 export default function Navbar() {
-  const { user, logout, isLoading } = useAuth();
-  const { items, count, total, removeItem, updateQty } = useCart();
+  const { user, logout, isLoading, token } = useAuth();
+  const { items, count, total, removeItem, updateQty, clearCart } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
   const router = useRouter();
 
@@ -20,6 +20,42 @@ export default function Navbar() {
     logout();
     router.push("/");
   };
+
+  const finalizarCompra = async () => {
+  if (!user || !token) {
+    setCartOpen(false);
+    router.push("/entrar");
+    return;
+  }
+
+  const body = {
+    itens: items.map(i => ({
+      produtoId: i.product.id,
+      quantidade: i.quantity,
+    }))
+  };
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pedidos`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      clearCart();
+      setCartOpen(false);
+      alert("Pedido realizado com sucesso! 🎉");
+    } else {
+      alert("Erro ao finalizar pedido. Tente novamente.");
+    }
+  } catch {
+    alert("Erro ao conectar com o servidor.");
+  }
+};
 
   return (
     <>
@@ -241,14 +277,16 @@ export default function Navbar() {
                     WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                   }}>{formatPrice(total)}</span>
                 </div>
-                <button style={{
-                  width: "100%",
-                  background: "linear-gradient(90deg, #7c3aed, #f97316)",
-                  border: "none", borderRadius: 10, padding: "15px",
-                  color: "white", fontWeight: 800, fontSize: 16,
-                  letterSpacing: "0.08em", cursor: "pointer",
-                  boxShadow: "0 4px 20px rgba(124,58,237,0.4)",
-                }}>
+                <button
+                  onClick={finalizarCompra}
+                  style={{
+                    width: "100%",
+                    background: "linear-gradient(90deg, #7c3aed, #f97316)",
+                    border: "none", borderRadius: 10, padding: "15px",
+                    color: "white", fontWeight: 800, fontSize: 16,
+                    letterSpacing: "0.08em", cursor: "pointer",
+                    boxShadow: "0 4px 20px rgba(124,58,237,0.4)",
+                  }}>
                   FINALIZAR COMPRA
                 </button>
               </div>
